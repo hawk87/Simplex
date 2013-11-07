@@ -1,6 +1,6 @@
 /*
 Usage:   $gcc -g Simplex.c -o Simplex.out
-         $cat Input.lp | ./Simplex.out Input.lp   
+         $cat <filename>.lp | ./Simplex.out <filename>.lp   
 */
 
 // TODO: tableauPurge!
@@ -25,9 +25,9 @@ main(int argc, char *argv[]) {
    /* DIAGNOSTICS */
 
    int i,j;
-   int count = 1; // contatore Tableau
+   int count = 1; // tableau counter
 
-   /* Print Tableau */
+/*   // Print Tableau
    printf("\n=== PRINT TABLEAU BEFORE IMPORT [MAIN] ===\n");
    for (i = 0; i < rows; i++) {
       for (j = 0; j < columns; j++)
@@ -37,26 +37,26 @@ main(int argc, char *argv[]) {
 
    printf("\nTableau Address: %p\n", tableau);
 
-   /* Memory Addresses */
+   // Memory Addresses
    printf("\n=== MEMORY ADDRESSES BEFORE IMPORT [MAIN]===\n");
    for (i = 0; i < rows; i++) {
       for (j = 0; j < columns; j++)
          printf("(%d,%d): %p\t", i, j, &(tableau[i][j]));
       printf("\n");
    }
-
+*/
    import(rows,columns,tableau);
-
-   /* Memory Addresses */
+/*
+   // Memory Addresses
    printf("\n=== MEMORY ADDRESSES AFTER IMPORT [MAIN]===\n");
    for (i = 0; i < rows; i++) {
       for (j = 0; j < columns; j++)
          printf("(%d,%d): %p\t", i, j, &(tableau[i][j]));
       printf("\n");
    }
-
-   /* Print Tableau */
-   printf("\n=== PRINT TABLEAU AFTER IMPORT [MAIN] ===\n");
+*/
+   // Print Tableau
+   printf("\n=== TABLEAU 0 ===\n");
    for (i = 0; i < rows; i++) {
       for (j = 0; j < columns; j++)
          printf("(%d,%d): %.3f\t", i, j, tableau[i][j]);
@@ -75,17 +75,17 @@ main(int argc, char *argv[]) {
    while ((optimal < (columns - 1)) && (unbounded < (rows - 1))) {
       for (j = 1; j < columns; j++)
          if (tableau[0][j] >= 0)
-            optimal++;  // se tutti i costi ridotti sono > 0, allora siamo nell'ottimo
-         else { // altrimenti scelgo una variabile fuori base con costo ridotto < 0 (Bland)
+            optimal++;  
+         else {
             optimal = 0;
-            h = j; // salvo l'indice della colonna della variabile fuori base scelta
+            h = j;
             for (i = 1; i < rows; i++)
-               if (tableau[i][h] <= 0) // se ogni riga della colonna della variabile fuori base e' <= 0, allora e' illimitato
+               if (tableau[i][h] <= 0)
                   unbounded++;
                else {
                   unbounded = 0;
                   sw = 0;
-                  for (i = 1; i < rows; i++) { // altrimenti calcola i rapporti ed il theta
+                  for (i = 1; i < rows; i++) {
                      if (tableau[i][h] > 0 && sw == 0) {
                         theta = tableau[i][0] / tableau[i][h];
                         k = i;
@@ -103,7 +103,7 @@ main(int argc, char *argv[]) {
             
             pivot(k, h, rows, columns, tableau);
             
-            printf("\n=== PRINT TABLEAU %d ===\n", count++);
+            printf("\n=== TABLEAU %d ===\n", count++);
             for (i = 0; i < rows; i++) {
                for (j = 0; j < columns; j++)
                   printf("(%d,%d): %.3f\t", i, j, tableau[i][j]);
@@ -113,7 +113,8 @@ main(int argc, char *argv[]) {
    }
    
    if(optimal == (columns - 1)) {
-      /* Print Optimal Solution */
+      
+      // Print Optimal Solution
       printf("\n[*] Optimal Solution Found!\n");
 
       printf("\n[*] z = %.3f\n", -tableau[0][0]);
@@ -135,11 +136,11 @@ main(int argc, char *argv[]) {
 void pivot(int k, int h, int rows, int columns, float tableau[rows][columns]) {
 
    /*
-      k = riga del pivot
-      h = colonna del pivot
-      rows = numero righe tableau
-      columns = numero colonne tableau
-      tableau = riferimento al tableau
+      k = pivot's row
+      h = pivot's columns
+      rows = tableau's # rows
+      columns = tableaus' # columns
+      tableau = tableau pointer
    */
    
    float pivotElem = tableau[k][h];
@@ -155,7 +156,7 @@ void pivot(int k, int h, int rows, int columns, float tableau[rows][columns]) {
       }
 }
 
-
+// TODO: unique method for countRows and countColumns
 
 int countRows(char *filename) {
 
@@ -202,8 +203,8 @@ int countColumns(char *filename) {
 void import(int rows, int columns, float tableau[rows][columns]) {
 
    int i,j;
-
-   /* Print Init Tableau */
+/*
+   // Print Init Tableau
    printf("\n=== INIT TABLEAU [IMPORT] ===\n");
    for (i = 0; i < rows; i++) {
       for (j = 0; j < columns; j++)
@@ -211,24 +212,25 @@ void import(int rows, int columns, float tableau[rows][columns]) {
       printf("\n");
    }
 
-   /* Memory Addresses */
+   // Memory Addresses
    printf("\n=== MEMORY ADDRESSES [IMPORT] ===\n");
    for (i = 0; i < rows; i++) {
       for (j = 0; j < columns; j++)
          printf("(%d,%d): %p\t", i, j, &(tableau[i][j]));
       printf("\n");
    }
-
-   /* Tableau Import */
+*/
+   // Tableau Import
    for(i = 0; i < rows; i++)
   	   for(j = 0; j < columns; j++)
          scanf("%f", &(tableau[i][j]));
-
-   /* Print Tableau */
+/*
+   // Print Tableau
    printf("\n=== PRINT TABLEAU [IMPORT] ===\n");
    for (i = 0; i < rows; i++) {
       for (j = 0; j < columns; j++)
          printf("(%d,%d): %.3f\t", i, j, tableau[i][j]);
       printf("\n");
    }
+*/
 }
