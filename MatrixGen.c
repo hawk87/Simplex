@@ -46,11 +46,11 @@ main(int argc, char *argv[]) {
 
 /* DIAGNOSTICS
 
-   // Print Matrix
-   for (i = 0; i < rows; i++) {
-      for (j = 0; j < columns; j++)
-         printf("(%ld,%ld): %d\t", i, j, matrix[i][j]);
-      printf("\n");
-   }
+// Print Matrix
+for (i = 0; i < rows; i++) {
+for (j = 0; j < columns; j++)
+printf("(%ld,%ld): %d\t", i, j, matrix[i][j]);
+printf("\n");
+}
 */
 }
