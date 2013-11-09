@@ -1,6 +1,6 @@
 /*
-Usage:   $gcc -g Simplex.c -o Simplex.out
-         $cat <filename>.lp | ./Simplex.out <filename>.lp   
+Usage: $gcc -g Simplex.c -o Simplex.out
+$cat <filename>.lp | ./Simplex.out <filename>.lp
 */
 
 // TODO: tableauPurge!
@@ -17,42 +17,42 @@ main(int argc, char *argv[]) {
    int rows = countRows(argv[1]);
    int columns = countColumns(argv[1]);
    
-   printf("Rows   : %d\n", rows);
+   printf("Rows : %d\n", rows);
    printf("Columns: %d\n", columns);
    
    float tableau[rows][columns];
 
-   /* DIAGNOSTICS */
-
    int i,j;
    int count = 1; // tableau counter
 
-/*   // Print Tableau
+   /* DIAGNOSTICS */
+
+/* // Print Tableau
    printf("\n=== PRINT TABLEAU BEFORE IMPORT [MAIN] ===\n");
    for (i = 0; i < rows; i++) {
       for (j = 0; j < columns; j++)
          printf("(%d,%d): %.3f\t", i, j, tableau[i][j]);
-      printf("\n");
+   printf("\n");
    }
 
    printf("\nTableau Address: %p\n", tableau);
 
-   // Memory Addresses
+// Memory Addresses
    printf("\n=== MEMORY ADDRESSES BEFORE IMPORT [MAIN]===\n");
    for (i = 0; i < rows; i++) {
       for (j = 0; j < columns; j++)
          printf("(%d,%d): %p\t", i, j, &(tableau[i][j]));
-      printf("\n");
+   printf("\n");
    }
 */
    import(rows,columns,tableau);
 /*
-   // Memory Addresses
+// Memory Addresses
    printf("\n=== MEMORY ADDRESSES AFTER IMPORT [MAIN]===\n");
    for (i = 0; i < rows; i++) {
       for (j = 0; j < columns; j++)
          printf("(%d,%d): %p\t", i, j, &(tableau[i][j]));
-      printf("\n");
+   printf("\n");
    }
 */
    // Print Tableau
@@ -75,7 +75,7 @@ main(int argc, char *argv[]) {
    while ((optimal < (columns - 1)) && (unbounded < (rows - 1))) {
       for (j = 1; j < columns; j++)
          if (tableau[0][j] >= 0)
-            optimal++;  
+            optimal++;
          else {
             optimal = 0;
             h = j;
@@ -97,7 +97,7 @@ main(int argc, char *argv[]) {
                           theta = ratio;
                           k = i;
                        }
-                     }    
+                     }
                   }
                }
             
@@ -109,7 +109,7 @@ main(int argc, char *argv[]) {
                   printf("(%d,%d): %.3f\t", i, j, tableau[i][j]);
                printf("\n");
             }
-         }    
+         }
    }
    
    if(optimal == (columns - 1)) {
@@ -222,7 +222,7 @@ void import(int rows, int columns, float tableau[rows][columns]) {
 */
    // Tableau Import
    for(i = 0; i < rows; i++)
-  	   for(j = 0; j < columns; j++)
+           for(j = 0; j < columns; j++)
          scanf("%f", &(tableau[i][j]));
 /*
    // Print Tableau
@@ -230,7 +230,7 @@ void import(int rows, int columns, float tableau[rows][columns]) {
    for (i = 0; i < rows; i++) {
       for (j = 0; j < columns; j++)
          printf("(%d,%d): %.3f\t", i, j, tableau[i][j]);
-      printf("\n");
+   printf("\n");
    }
 */
 }
