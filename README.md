@@ -3,9 +3,13 @@ Simplex
 
 C Implementation of Simplex Algorithm.
 
-## How to Build and Run
+## How to build and run:
     $ make
     $ ./bin/main ./test/Example.lp
 
-## How to Delete 'bin' dir
+## How to delete 'bin' directory:
     $ make clean
+    
+## How to build and run 'Tableau Generator'
+    $ gcc -g ./src/matrix_gen.c -o ./bin/matrix_gen
+    $ ./bin/matrix_gen <rows> <columns> <random_range> ./test/<filename>.lp
