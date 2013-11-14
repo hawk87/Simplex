@@ -11,9 +11,9 @@ void simplex(int rows, int columns, float tableau[rows][columns]) {
 
    float theta,ratio;
 
-   int i,j;
-   int h,k;
-   int sw;
+   int i,j = 0;
+   int h,k = 0;
+   int sw = 0;
 
    int count = 0;
 
@@ -60,16 +60,22 @@ void simplex(int rows, int columns, float tableau[rows][columns]) {
    if(optimal == (columns - 1)) {
       
       // Print Optimal Solution
-      printf("\n[*] Optimal Solution Found!\n");
+      printf("\n[*] Optimal solution found!\n");
 
       printf("\n[*] z = %.3f\n", -tableau[0][0]);
 
       for (j = 1; j < columns; j++) {
          if(tableau[0][j] > 0)
             printf("[*] x%d: 0\n",j);
-         else for(i = 1; i < rows; i++)
-            if(tableau[i][j] == 1)
-               printf("[*] x%d: %.3f\n",j,tableau[i][0]);
+         else {
+            for(i = 1; i < rows; i++)
+               if(tableau[i][j] == 1) {
+                  printf("[*] x%d: %.3f\n",j,tableau[i][0]);
+                  break;
+               }
+            if (i == rows)
+               printf("[*] x%d: 0\n",j);
+         }
       }
       printf("\n");
    }
