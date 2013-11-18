@@ -14,18 +14,10 @@ int main(int argc, char *argv[]) {
    float tableau[rows][columns];
 
    int i,j;
-/*
-   // Print Tableau
-   printf("\n=== PRINT TABLEAU BEFORE IMPORT [MAIN] ===\n");
-   for (i = 0; i < rows; i++) {
-      for (j = 0; j < columns; j++)
-         printf("(%d,%d): %.3f\t", i, j, tableau[i][j]);
-   printf("\n");
-   }
-*/
+
    import(argv[1], rows, columns, tableau);
 
-   // Print Init Tableau
+   // print init tableau
    printf("\n=== TABLEAU 0 ===\n");
    for (i = 0; i < rows; i++) {
       for (j = 0; j < columns; j++)
@@ -39,7 +31,7 @@ int main(int argc, char *argv[]) {
 
    copyTableau(rows, columns, tableau, new_tableau);
 
-   // Print Init Tableau
+   // print copied tableau
    printf("\n=== TABLEAU [COPY] ===\n");
    for (i = 0; i < rows; i++) {
       for (j = 0; j < new_columns; j++)
@@ -47,26 +39,26 @@ int main(int argc, char *argv[]) {
       printf("\n");
    }
 
-   twoPhases(rows, new_columns, new_tableau);
+   if (twoPhases(rows, new_columns, new_tableau) == 0) {
 
-   printf("\n=== TABLEAU [AFTER TWO PHASES] ===\n");
-   for (i = 0; i < rows; i++) {
-      for (j = 0; j < columns; j++)
-         printf("(%d,%d): %.3f\t", i, j, new_tableau[i][j]);
-      printf("\n");
+       printf("\n=== TABLEAU [AFTER TWO PHASES] ===\n");
+       for (i = 0; i < rows; i++) {
+          for (j = 0; j < columns; j++)
+             printf("(%d,%d): %.3f\t", i, j, new_tableau[i][j]);
+          printf("\n");
+       }
+
+       // tableau copy on-the-fly
+       for(i = 0; i < rows; i++)
+           for(j = 0; j < columns; j++)
+               tableau[i][j] = new_tableau[i][j];
+
+       simplex(rows, columns, tableau);
    }
-
-   // copia tableau on the fly
-   for(i = 0; i < rows; i++)
-       for(j = 0; j < columns; j++)
-           tableau[i][j] = new_tableau[i][j];
-
-   simplex(rows, columns, tableau); // e' sbagliato che il secondo argomento sia columns, mentre new_tableau e' [rows][new_columns]
 
    return 0;
 }
 
-// TODO: CHECK
 int countRows(char *filename) {
 
    int c;
@@ -83,7 +75,6 @@ int countRows(char *filename) {
    return rows;
 }
 
-// TODO: CHECK
 int countColumns(char *filename) {
 
    int c;
@@ -91,10 +82,9 @@ int countColumns(char *filename) {
    
    FILE *fp = fopen(filename,"r");
    
-   while((c = getc(fp)) != '\n') {
+   while((c = getc(fp)) != '\n')
       if(c == ' ')
          columns++;
-   }
 
    fclose(fp);
    
@@ -106,36 +96,12 @@ int import(char *filename, int rows, int columns, float tableau[rows][columns]) 
    FILE *fp = fopen(filename,"r");   
 
    int i,j;
-/*
-   // Print Init Tableau
-   printf("\n=== INIT TABLEAU [IMPORT] ===\n");
-   for (i = 0; i < rows; i++) {
-      for (j = 0; j < columns; j++)
-         printf("(%d,%d): %.3f\t", i, j, tableau[i][j]);
-      printf("\n");
-   }
 
-   // Memory Addresses
-   printf("\n=== MEMORY ADDRESSES [IMPORT] ===\n");
-   for (i = 0; i < rows; i++) {
-      for (j = 0; j < columns; j++)
-         printf("(%d,%d): %p\t", i, j, &(tableau[i][j]));
-      printf("\n");
-   }
-*/
    // Tableau Import
    for(i = 0; i < rows; i++)
            for(j = 0; j < columns; j++)
          fscanf(fp, "%f", &(tableau[i][j]));
-/*
-   // Print Tableau
-   printf("\n=== PRINT TABLEAU [IMPORT] ===\n");
-   for (i = 0; i < rows; i++) {
-      for (j = 0; j < columns; j++)
-         printf("(%d,%d): %.3f\t", i, j, tableau[i][j]);
-   printf("\n");
-   }
-*/
+
    return 0;
 }
 

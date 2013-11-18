@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include "simplex.h"
 
-
 void simplex(int rows, int columns, float tableau[rows][columns]) {
 
    int unbounded = 0;
@@ -79,10 +78,9 @@ void simplex(int rows, int columns, float tableau[rows][columns]) {
       }
       printf("\n");
    }
-   else printf("\n[-] Unbounded problem!\n");
+   else printf("[-] Unbounded problem!\n");
    return;
 }
-
 
 void pivot(int k, int h, int rows, int columns, float tableau[rows][columns]) {
 
