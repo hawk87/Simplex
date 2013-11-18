@@ -35,10 +35,15 @@ main(int argc, char *argv[]) {
    // Writing the matrix in a file
    FILE *fp;
    fp = fopen(filename,"w");
+
    for (i = 0; i < rows; i++) {
-      for (j = 0; j < columns; j++)
-         fprintf(fp, "%d ", matrix[i][j]);
-      fprintf(fp, "\n");
+      for (j = 0; j < columns - 1; j++)
+			fprintf(fp, "%d ", matrix[i][j]);
+
+			fprintf(fp, "%d", matrix[i][j]);
+
+    		if(i < rows - 1)
+				fprintf(fp, "\n");
    }
    fclose(fp);
 
