@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "simplex.h"
 
-void twoPhases(int rows, int new_columns, float new_tableau[rows][new_columns]) {
+int twoPhases(int rows, int new_columns, float new_tableau[rows][new_columns]) {
 
    int i,j;
 
@@ -46,8 +46,10 @@ void twoPhases(int rows, int new_columns, float new_tableau[rows][new_columns]) 
    /* === SIMPLEX PHASE 1 === */
    simplex(rows, new_columns, new_tableau);
    
-   if(-new_tableau[0][0] > 0)
-      printf("\n[#] Unfeasible problem!\n");
+   if(new_tableau[0][0] < 0) {
+      printf("[#] Unfeasible problem!\n\n");
+      return 1;
+   }
    else {
       for (j = 0; j < new_columns; j++)
          new_tableau[0][j] = objFunc[j];
@@ -59,15 +61,12 @@ void twoPhases(int rows, int new_columns, float new_tableau[rows][new_columns]) 
          printf("\n");
       }
 
-// Adjusting new_tableau with pivoting (-> canonical form): HOW? TODO!
-      pivot(2,3,rows,new_columns,new_tableau);
-
-      // Print new_tableau
-      printf("\n=== PRINT TABLEAU [ADJUSTING] ===\n");
-      for (i = 0; i < rows; i++) {
-         for (j = 0; j < new_columns-rows+1; j++)
-            printf("(%d,%d): %.3f\t", i, j, new_tableau[i][j]);
-         printf("\n");
-      }
+      // check for adjusting
+      for (j = 1; j < new_columns-rows+1; j++)
+          if(new_tableau[0][j] != 0)
+             for (i = 1; i < rows; i++)
+                 if (new_tableau[i][j] == 1)
+                     pivot(i, j, rows, new_columns, new_tableau);
+      return 0;
    }
 }
