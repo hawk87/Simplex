@@ -13,5 +13,6 @@ HEADERS += \
 OTHER_FILES += \
     test/Example.lp \
     test/Input.lp \
-    test/Unfeasible.lp
+    test/Unfeasible.lp \
+    Makefile
 

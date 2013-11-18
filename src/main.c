@@ -39,7 +39,9 @@ int main(int argc, char *argv[]) {
       printf("\n");
    }
 
-   if (twoPhases(rows, new_columns, new_tableau) == 0) {
+   int result_TP = twoPhases(rows, new_columns, new_tableau);
+
+   if (result_TP == 0) {
 
        printf("\n=== TABLEAU [AFTER TWO PHASES] ===\n");
        for (i = 0; i < rows; i++) {

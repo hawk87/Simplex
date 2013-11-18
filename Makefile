@@ -23,13 +23,18 @@ OUT_DIR = ./bin
 all: directories main
 	@$(ECHO) All done
 
-main: main.o simplex.o
-	gcc -o ${OUT_DIR}/main ${OUT_DIR}/main.o ${OUT_DIR}/simplex.o
+main: main.o simplex.o twophases.o
+	gcc -o ${OUT_DIR}/main ${OUT_DIR}/main.o ${OUT_DIR}/simplex.o ${OUT_DIR}/twophases.o
 	@$(ECHO) Linking $@
 	@sleep 0.1
 
 simplex.o: ${SRC_DIR}/simplex.c
 	gcc -g -c -o ${OUT_DIR}/simplex.o ${SRC_DIR}/simplex.c
+	@$(ECHO) Compiling $@
+	@sleep 0.1
+
+twophases.o: ${SRC_DIR}/twophases.c
+	gcc -g -c -o ${OUT_DIR}/twophases.o ${SRC_DIR}/twophases.c
 	@$(ECHO) Compiling $@
 	@sleep 0.1
 
