@@ -8,7 +8,7 @@ $./matrix_gen.out <rows> <columns> <random_range> <../test/filename.lp>
 
 main(int argc, char *argv[]) {
 
-   long i,j;
+   long i,j = 0;
    char *filename = argv[4];
    long rows = strtoul(argv[1], argv, 10);
    long columns = strtoul(argv[2], argv, 10);
@@ -20,8 +20,11 @@ main(int argc, char *argv[]) {
 
    int matrix[rows][columns];
 
-   // Fill Matrix
-   for (i = 0; i < rows; i++)
+	// Fill Matrix
+	for (i = 0; i < rows; i++)
+		matrix[i][0] = (rand() % random_range) + 1;
+
+	for (i = 0; i < rows; i++)
       for (j = 0; j < columns; j++)
          matrix[i][j] = rand() % random_range;
 
