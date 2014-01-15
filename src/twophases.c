@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include "simplex.h"
 
+#define EPSILON 0.000001
+
 int twoPhases(int rows, int new_columns, float new_tableau[rows][new_columns]) {
 
    int i,j;
@@ -46,7 +48,7 @@ int twoPhases(int rows, int new_columns, float new_tableau[rows][new_columns]) {
    /* === SIMPLEX PHASE 1 === */
    simplex(rows, new_columns, new_tableau);
    
-   if(new_tableau[0][0] < 0) {
+   if(new_tableau[0][0] < 0 - EPSILON) {
       printf("[#] Unfeasible problem!\n\n");
       return 1;
    }
